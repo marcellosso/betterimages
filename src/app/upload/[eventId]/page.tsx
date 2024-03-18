@@ -8,6 +8,10 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  ReactCompareSlider,
+  ReactCompareSliderImage,
+} from "react-compare-slider";
 
 export default function UploadPage({
   params,
@@ -43,17 +47,36 @@ export default function UploadPage({
                 </div>
               </div>
               {status.data && typeof status.data.url === "string" && (
-                <Image
-                  src={status.data.url}
-                  alt="Imagem"
-                  width={350}
-                  height={350}
-                  priority
-                  style={{
-                    maxWidth: "100%",
-                    height: "auto",
-                  }}
-                />
+                <>
+                  {/* <Image
+                    src={status.data.url}
+                    alt="Imagem"
+                    width={550}
+                    height={550}
+                    className="rounded-md"
+                    priority
+                    style={{
+                      maxWidth: "100%",
+                      height: "auto",
+                    }}
+                  /> */}
+                  <ReactCompareSlider
+                    itemOne={
+                      <ReactCompareSliderImage
+                        src="https://replicate.delivery/pbxt/KZVIDUcU15XCjloQMdqitfzi6pau7rO70IuGgdRAyHgku70q/13_before.png"
+                        alt="Image one"
+                      />
+                    }
+                    itemTwo={
+                      <ReactCompareSliderImage
+                        src={status.data.url}
+                        alt="Image two"
+                      />
+                    }
+                    style={{ width: 550, height: 550 }}
+                    className="rounded-md"
+                  />
+                </>
               )}
             </div>
           ))
