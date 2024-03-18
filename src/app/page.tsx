@@ -53,10 +53,8 @@ export default function Home() {
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-center px-4 md:p-8">
       <header className="mb-8 flex w-full flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold">Avatar Generator</h1>
-        <p className="opacity-60">
-          Upload a picture of yourself and generate your avatar
-        </p>
+        <h1 className="text-4xl font-bold">Deixe sua Foto em HD</h1>
+        <p className="opacity-60">Deixe sua foto com uma qualidade impecavel</p>
       </header>
 
       <SignInButton />
@@ -95,8 +93,8 @@ export default function Home() {
             <input {...getInputProps()} />
             <InboxIcon className="w-10 h-10 text-primary" />
             <p className="mt-2 text-sm text-foreground/80 font-light">
-              <span className="font-medium">Click to upload</span> or drag and
-              drop your image
+              <span className="font-medium">Faca upload</span> ou arraste uma
+              imagem
             </p>
             <p className="text-xs font-light text-foreground/60">
               Supported formats: .png, .jpeg, .jpg{" "}
@@ -107,7 +105,7 @@ export default function Home() {
           type="submit"
           className="mt-5 rounded bg-blue-500 px-6 py-4 text-lg text-white hover:bg-blue-700"
         >
-          Generate Avatar
+          Melhorar imagem
         </button>
       </form>
     </main>

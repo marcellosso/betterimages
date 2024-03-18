@@ -28,7 +28,7 @@ client.defineJob({
     await io.logger.info("Image upscaling started!");
 
     const generatingImageStatus = await io.createStatus("upscaling-image", {
-      label: "Generating upscaled image",
+      label: "Criando imagem melhorada",
       state: "loading",
     });
 
@@ -66,7 +66,7 @@ client.defineJob({
     }
 
     await generatingImageStatus.update("upscaling-image-success", {
-      label: "Upscaled image generated",
+      label: "Imagem melhorada criada!",
       state: "success",
       data: {
         url: Array.isArray(imageGenerated.output)

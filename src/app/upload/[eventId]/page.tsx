@@ -6,6 +6,7 @@ import {
   ClockIcon,
   ExternalLinkIcon,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function UploadPage({
@@ -18,7 +19,7 @@ export default function UploadPage({
   );
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-center">
-      <h2 className="mb-2 text-3xl font-bold">Thank you! 🌟</h2>
+      <h2 className="mb-2 text-3xl font-bold">Muito Obrigado! 🌟</h2>
       <div className="flex flex-col gap-1">
         {fetchStatus === "loading" ? (
           <p>Loading...</p>
@@ -42,7 +43,17 @@ export default function UploadPage({
                 </div>
               </div>
               {status.data && typeof status.data.url === "string" && (
-                <img className="w-1/2" src={status.data.url} />
+                <Image
+                  src={status.data.url}
+                  alt="Imagem"
+                  width={350}
+                  height={350}
+                  priority
+                  style={{
+                    maxWidth: "100%",
+                    height: "auto",
+                  }}
+                />
               )}
             </div>
           ))
@@ -51,18 +62,18 @@ export default function UploadPage({
           run.output &&
           typeof run.output.message === "string" && (
             <p className="bg-red-200 text-red-600 border-red-300 border my-4 rounded p-2">
-              Generation failed: {run.output.message}
+              Upscaling falhou: {run.output.message}
             </p>
           )}
       </div>
       <p className="mb-4 text-center">
-        Your image will be delivered to your email, once it is ready! 💫
+        Voce recebera sua imagem no seu email assim que ela estiver pronta! 💫
       </p>
       <Link
         href="/"
         className="rounded bg-blue-500 px-4 py-3 text-white hover:bg-blue-600"
       >
-        Generate another
+        Melhore outra
       </Link>
     </div>
   );
