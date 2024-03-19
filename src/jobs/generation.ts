@@ -45,32 +45,32 @@ client.defineJob({
     //   },
     // });
 
-    // const imageGenerated = await io.replicate.run("create-model", {
-    //   identifier: process.env
-    //     .UPSCALER_AI_URI as `${string}/${string}:${string}`,
-    //   input: {
-    //     image: imageUrl,
-    //     prompt:
-    //       "masterpiece, best quality, highres, <lora:more_details:0.5> <lora:SDXLrender_v2.0:1>",
-    //     dynamic: 9,
-    //     scheduler: "DPM++ 3M SDE Karras",
-    //     creativity: 0.1,
-    //     resemblance: 1.6,
-    //     scale_factor: 2,
-    //     negative_prompt:
-    //       "(worst quality, low quality, normal quality:2) JuggernautNegative-neg",
-    //     num_inference_steps: 18,
-    //     tiling_width: 16,
-    //     tiling_height: 16,
-    //   },
-    // });
+    const imageGenerated = await io.replicate.run("create-model", {
+      identifier: process.env
+        .UPSCALER_AI_URI as `${string}/${string}:${string}`,
+      input: {
+        image: imageUrl,
+        prompt:
+          "masterpiece, best quality, highres, <lora:more_details:0.5> <lora:SDXLrender_v2.0:1>",
+        dynamic: 9,
+        scheduler: "DPM++ 3M SDE Karras",
+        creativity: 0.1,
+        resemblance: 1.6,
+        scale_factor: 2,
+        negative_prompt:
+          "(worst quality, low quality, normal quality:2) JuggernautNegative-neg",
+        num_inference_steps: 18,
+        tiling_width: 16,
+        tiling_height: 16,
+      },
+    });
 
-    const imageGenerated = {
-      output: [
-        "https://replicate.delivery/pbxt/iEz6MpzsI3qSGluBtSdJZL3AtfJ9aM5TR9raP8V8gsWMG1QJA/1337-13b0879a-e594-11ee-b1e6-1a0c5e62747e.png",
-      ],
-      error: null,
-    };
+    // const imageGenerated = {
+    //   output: [
+    //     "https://replicate.delivery/pbxt/iEz6MpzsI3qSGluBtSdJZL3AtfJ9aM5TR9raP8V8gsWMG1QJA/1337-13b0879a-e594-11ee-b1e6-1a0c5e62747e.png",
+    //   ],
+    //   error: null,
+    // };
 
     if (imageGenerated.output === undefined || imageGenerated.error !== null) {
       await generatingImageStatus.update("upscaling-image-error", {
