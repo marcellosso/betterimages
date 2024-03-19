@@ -1,57 +1,29 @@
-// import { auth } from "@clerk/nextjs";
-
 import { client } from "@/trigger";
 import { auth } from "@clerk/nextjs";
+import { NextRequest } from "next/server";
+import { validateUser } from "@/lib/auth/utils";
 
-const TEN_MB_LIMIT = 10 * 1024 * 1024;
-
-export async function POST(req: Request) {
+export async function POST(request: NextRequest) {
   const { userId } = auth();
-  // const plan = await getUserSubscriptionPlan();
+  const userIp = request.ip || "127.0.0.1";
 
-  if (!userId) {
-    return Response.json(
-      { error: "You need to be logged in to upload a document" },
-      { status: 401 }
-    );
+  const { error, message } = await validateUser(userId, userIp);
+  if (error) {
+    return Response.json({ error: message }, { status: 403 });
   }
-
-  // if (!plan.isSubscribed) {
-  //   return Response.json(
-  //     { error: "You need to subscribe to upload a document" },
-  //     { status: 401 }
-  //   );
-  // }
-
-  // const { documents: DOCUMENTS_UPLOAD_LIMIT } = plan.limitations!;
-  // const { documents } = await getDocuments();
-
-  // if (
-  //   DOCUMENTS_UPLOAD_LIMIT !== -1 &&
-  //   documents.length >= DOCUMENTS_UPLOAD_LIMIT
-  // ) {
-  //   return Response.json(
-  //     {
-  //       error: `You have reached your limit of ${DOCUMENTS_UPLOAD_LIMIT} documents. Please upgrade to upload more documents.`,
-  //     },
-  //     {
-  //       status: 403,
-  //     }
-  //   );
-  // }
-
-  const data = await req.formData();
   try {
-    const image = data.get("image");
+    const { imageUrl } = await request.json();
 
     const event = await client.sendEvent({
       name: "generate.image",
       payload: {
-        image,
+        imageUrl,
+        userIp: userIp,
+        userId,
       },
     });
 
-    return Response.json({ status: "Processing", eventId: event.id });
+    return Response.json({ eventId: event.id });
   } catch (error) {
     return Response.json(
       { error: (error as { message: string }).message },

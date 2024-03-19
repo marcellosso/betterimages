@@ -5,13 +5,13 @@ import { useRouter } from "next/navigation";
 import { useDropzone } from "react-dropzone";
 import { FileCheck2Icon, InboxIcon, Trash2Icon } from "lucide-react";
 import { SignInButton, UserButton } from "@clerk/nextjs";
+import { getBase64 } from "@/lib/file";
 
 export default function Home() {
   const [selectedFile, setSelectedFile] = useState<File | null>();
   const router = useRouter();
 
   const { getRootProps, getInputProps } = useDropzone({
-    // accept: { "application/pdf": [".pdf"] },
     accept: {
       "image/jpeg": [],
       "image/png": [],
@@ -32,19 +32,59 @@ export default function Home() {
     e.preventDefault();
     try {
       if (!selectedFile) {
-        toast.error("Please select an image");
+        toast.error("Por favor selecione uma imagem");
         return;
       }
-      const formData = new FormData();
-      formData.append("image", selectedFile);
-      //👇🏻 post data to server's endpoint
-      const res = await fetch("/api/generate", {
+
+      const presignResponse = await fetch("/api/upload", {
         method: "POST",
-        body: formData,
+        body: JSON.stringify({
+          contentType: selectedFile.type,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
-      const body = await res.json();
-      if (body.error) throw body.error;
-      router.push("/upload/" + body.eventId);
+
+      if (presignResponse.ok) {
+        const { url, fields } = await presignResponse.json();
+        const formData = new FormData();
+        Object.entries(fields).forEach(([key, value]) => {
+          formData.append(key, value as string);
+        });
+        formData.append("file", selectedFile);
+
+        const uploadResponse = await fetch(url, {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!uploadResponse.ok) {
+          throw new Error(
+            "Falha ao fazer o upload da imagem, por favor tente novamente."
+          );
+        }
+
+        const imageUrl = `${url}${fields.key}`;
+
+        const generateRes = await fetch("/api/generate", {
+          method: "POST",
+          body: JSON.stringify({
+            imageUrl,
+          }),
+        });
+
+        const { eventId, error } = await generateRes.json();
+
+        if (!generateRes.ok) {
+          throw error;
+        }
+
+        router.push("/upload/" + eventId);
+      } else {
+        const { error } = await presignResponse.json();
+        throw error;
+      }
     } catch (err) {
       toast.error(err as string);
     }

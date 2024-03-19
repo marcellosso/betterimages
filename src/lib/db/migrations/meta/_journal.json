@@ -1,0 +1,20 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1710813039333,
+      "tag": "0000_messy_sebastian_shaw",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1710814654608,
+      "tag": "0001_volatile_chronomancer",
+      "breakpoints": true
+    }
+  ]
+}

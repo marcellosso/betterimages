@@ -21,6 +21,7 @@ export default function UploadPage({
   const { fetchStatus, error, statuses, run } = useEventRunStatuses(
     params.eventId
   );
+
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-center">
       <h2 className="mb-2 text-3xl font-bold">Muito Obrigado! 🌟</h2>
@@ -63,7 +64,7 @@ export default function UploadPage({
                   <ReactCompareSlider
                     itemOne={
                       <ReactCompareSliderImage
-                        src="https://replicate.delivery/pbxt/KZVIDUcU15XCjloQMdqitfzi6pau7rO70IuGgdRAyHgku70q/13_before.png"
+                        src={status.data.originalUrl as string}
                         alt="Image one"
                       />
                     }

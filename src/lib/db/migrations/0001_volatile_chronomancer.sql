@@ -1,0 +1,1 @@
+ALTER TABLE "subscriptions" ADD COLUMN "monthly_credits" integer DEFAULT 0 NOT NULL;
