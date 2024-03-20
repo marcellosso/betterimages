@@ -3,19 +3,28 @@ import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 interface ManageStripeSubscriptionActionProps {
-  isSubscribed: boolean;
-  stripeCustomerId?: string | null;
-  isCurrentPlan: boolean;
-  stripePriceId: string;
   email: string;
-  userId: string;
+  isSubscription: boolean;
+  stripePriceId: string;
+  creditsAmount: number;
+
+  isSubscribed?: boolean;
+  stripeCustomerId?: string | null;
+  isCurrentPlan?: boolean;
 }
 
 export async function POST(req: Request) {
   const body: ManageStripeSubscriptionActionProps = await req.json();
-  const { isSubscribed, stripeCustomerId, stripePriceId, email } = body;
+  const {
+    isSubscribed,
+    stripeCustomerId,
+    stripePriceId,
+    email,
+    isSubscription,
+    creditsAmount,
+  } = body;
 
-  const billingUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/account/billing`;
+  const billingUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/account`;
 
   const { userId } = auth();
 
@@ -36,7 +45,7 @@ export async function POST(req: Request) {
     success_url: billingUrl.concat("?success=true"),
     cancel_url: billingUrl,
     payment_method_types: ["card"],
-    mode: "subscription",
+    mode: isSubscription ? "subscription" : "payment",
     billing_address_collection: "auto",
     allow_promotion_codes: true,
     customer_email: email,
@@ -48,6 +57,8 @@ export async function POST(req: Request) {
     ],
     metadata: {
       userId,
+      isSubscription: `${isSubscription}`,
+      creditsAmount,
     },
   });
 

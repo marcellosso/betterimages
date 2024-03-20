@@ -32,6 +32,9 @@ export type UserSubscriptionType = typeof userSubscriptions.$inferSelect;
 export const userCredits = pgTable("user_credits", {
   userId: varchar("user_id").notNull().unique(),
   credits: integer("credits").notNull().default(0),
+  stripeCustomerId: varchar("stripe_customer_id", { length: 255 })
+    .notNull()
+    .unique(),
 });
 
 export type UserCreditsType = typeof userCredits.$inferSelect;

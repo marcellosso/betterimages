@@ -6,14 +6,18 @@ import { stripe } from ".";
 import { getUserAuth } from "../auth/utils";
 
 export async function getUserCredits(userId: string | null) {
-  if (!userId) return 0;
-
-  const res = await db
+  const [credits] = await db
     .select()
     .from(userCredits)
-    .where(eq(userCredits.userId, userId));
+    .where(eq(userCredits.userId, userId ?? ""));
 
-  const credits = res?.[0]?.credits || 0;
+  if (!credits) {
+    return {
+      credits: 0,
+      stripeCustomerId: null,
+    };
+  }
+
   return credits;
 }
 
@@ -48,7 +52,9 @@ export async function getUserSubscriptionPlan() {
 
   const plan = isSubscribed
     ? storeSubscriptionPlans.find(
-        (p) => p.stripePriceId === subscription.stripePriceId
+        (p) =>
+          p.monthlyStripePriceId === subscription.stripePriceId ||
+          p.yearlyStripePriceId === subscription.stripePriceId
       )
     : undefined;
 

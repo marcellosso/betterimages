@@ -19,6 +19,7 @@ export default async function BillingPage() {
   await checkAuth();
   const { session } = await getUserAuth();
   const subscriptionPlan = await getUserSubscriptionPlan();
+
   return (
     <div className="flex flex-1 flex-col gap-4 p-8 max-h-screen">
       <SuccessToast />
@@ -64,29 +65,22 @@ export default async function BillingPage() {
             ) : null}
             <CardHeader className="mt-2">
               <CardTitle>{plan.name}</CardTitle>
-              <CardDescription>{plan.description}</CardDescription>
+              {/* <CardDescription>{plan.description}</CardDescription> */}
             </CardHeader>
             <CardContent>
               <div className="mt-2 mb-8">
                 <h3 className="font-bold">
-                  <span className="text-3xl">${plan.price / 100}</span> / month
+                  <span className="text-3xl">${plan.monthly_price / 100}</span>{" "}
+                  / month
                 </h3>
               </div>
-              <ul className="space-y-2">
-                {plan.features.map((feature, i) => (
-                  <li key={`feature_${i + 1}`} className="flex gap-x-2 text-sm">
-                    <CheckCircle2Icon className="text-green-400 h-5 w-5" />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
             </CardContent>
             <CardFooter className="flex items-end justify-center">
               {session?.user.email ? (
                 <ManageSubscription
                   userId={session.user.id}
                   email={session.user.email || ""}
-                  stripePriceId={plan.stripePriceId}
+                  stripePriceId={plan.monthlyStripePriceId}
                   stripeCustomerId={subscriptionPlan?.stripeCustomerId}
                   isSubscribed={!!subscriptionPlan.isSubscribed}
                   isCurrentPlan={subscriptionPlan?.name === plan.name}

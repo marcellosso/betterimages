@@ -5,21 +5,22 @@ import { useTransition } from "react";
 import { toast } from "sonner";
 
 type Props = {
-  userId: string;
   email: string;
   isCurrentPlan: boolean;
   isSubscribed: boolean;
-  stripeCustomerId?: string | null;
   stripePriceId: string;
+  creditsAmount: number;
+
+  stripeCustomerId?: string | null;
 };
 
 export default function ManageSubscription({
-  userId,
   email,
   isCurrentPlan,
   isSubscribed,
   stripeCustomerId,
   stripePriceId,
+  creditsAmount,
 }: Props) {
   const [isPending, startTransition] = useTransition();
 
@@ -33,11 +34,13 @@ export default function ManageSubscription({
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             email,
-            userId,
             isSubscribed,
             isCurrentPlan,
             stripeCustomerId,
             stripePriceId,
+            creditsAmount,
+
+            isSubscription: true,
           }),
         });
         const session: { url: string } = await res.json();

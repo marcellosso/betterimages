@@ -42,7 +42,7 @@ export const checkAuth = async () => {
 export const validateUser = async (userId: string | null, userIp: string) => {
   const userUsage = await kv.get(`user-usage-${userIp}`);
 
-  const credits = await getUserCredits(userId);
+  const { credits } = await getUserCredits(userId);
   const plan = await getUserSubscriptionPlan();
 
   let errorMessage = null;

@@ -15,6 +15,27 @@
       "when": 1710814654608,
       "tag": "0001_volatile_chronomancer",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1710897456109,
+      "tag": "0002_shiny_supernaut",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1710897478830,
+      "tag": "0003_wandering_dust",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1710897571945,
+      "tag": "0004_massive_ezekiel",
+      "breakpoints": true
     }
   ]
 }

@@ -103,7 +103,7 @@ client.defineJob({
       const userUsage = await kv.get(kvKey);
       if (!userUsage) await kv.set(kvKey, 1);
     } else {
-      const credits = await getUserCredits(userId);
+      const { credits } = await getUserCredits(userId);
       await db
         .update(userCredits)
         .set({

@@ -5,21 +5,18 @@ import { useTransition } from "react";
 import { toast } from "sonner";
 
 type Props = {
-  userId: string;
   email: string;
-  isCurrentPlan: boolean;
-  isSubscribed: boolean;
-  stripeCustomerId?: string | null;
   stripePriceId: string;
+  creditsAmount: number;
+
+  stripeCustomerId?: string | null;
 };
 
-export default function ManageSubscription({
-  userId,
+export default function ManageCredits({
   email,
-  isCurrentPlan,
-  isSubscribed,
   stripeCustomerId,
   stripePriceId,
+  creditsAmount,
 }: Props) {
   const [isPending, startTransition] = useTransition();
 
@@ -33,11 +30,11 @@ export default function ManageSubscription({
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             email,
-            userId,
-            isSubscribed,
-            isCurrentPlan,
             stripeCustomerId,
             stripePriceId,
+            creditsAmount,
+
+            isSubscription: false,
           }),
         });
         const session: { url: string } = await res.json();
@@ -58,7 +55,7 @@ export default function ManageSubscription({
         variant="default"
       >
         {isPending && <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />}
-        Inscreva-se
+        Compre agora
       </Button>
     </form>
   );
