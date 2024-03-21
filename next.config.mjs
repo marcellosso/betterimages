@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "pbxt.replicate.delivery",
       },
+      {
+        protocol: "https",
+        hostname: "img.clerk.com",
+      },
     ],
   },
 };

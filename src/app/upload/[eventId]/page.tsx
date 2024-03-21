@@ -49,18 +49,6 @@ export default function UploadPage({
               </div>
               {status.data && typeof status.data.url === "string" && (
                 <>
-                  {/* <Image
-                    src={status.data.url}
-                    alt="Imagem"
-                    width={550}
-                    height={550}
-                    className="rounded-md"
-                    priority
-                    style={{
-                      maxWidth: "100%",
-                      height: "auto",
-                    }}
-                  /> */}
                   <ReactCompareSlider
                     itemOne={
                       <ReactCompareSliderImage

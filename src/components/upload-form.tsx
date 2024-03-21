@@ -4,11 +4,13 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDropzone } from "react-dropzone";
 import { FileCheck2Icon, InboxIcon, Trash2Icon } from "lucide-react";
-import { SignInButton, UserButton } from "@clerk/nextjs";
+import { Button } from "./ui/button";
+import Image from "next/image";
 import { getBase64 } from "@/lib/file";
 
-export default function Home() {
+export function UploadForm() {
   const [selectedFile, setSelectedFile] = useState<File | null>();
+  const [fileBase64, setFileBase64] = useState("");
   const router = useRouter();
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -25,6 +27,8 @@ export default function Home() {
       }
 
       setSelectedFile(file);
+      const imageBase64 = await getBase64(file);
+      setFileBase64(imageBase64 as string);
     },
   });
 
@@ -91,63 +95,55 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen w-full flex-col items-center justify-center px-4 md:p-8">
-      <header className="mb-8 flex w-full flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold">Deixe sua Foto em HD</h1>
-        <p className="opacity-60">Deixe sua foto com uma qualidade impecavel</p>
-      </header>
-
-      <SignInButton />
-      <UserButton />
-
-      <form
-        method="POST"
-        className="flex w-full flex-col md:w-[60%]"
-        onSubmit={(e) => handleSubmit(e)}
-      >
-        {selectedFile ? (
-          <div className="flex gap-2 items-center shadow-2xl">
-            <FileCheck2Icon className="w-5 h-5 text-primary" />
-            <div>
-              <p className="text-sm text-foreground/80 font-light">
-                {selectedFile.name}
-              </p>
-              <p className="text-xs font-light text-foreground/60">
-                {(selectedFile.size / 1024 / 1024).toFixed(3)} mbs
-              </p>
-            </div>
-            <Trash2Icon
-              className="w-5 h-5 text-foreground hover:text-primary transition-all duration-100 ml-auto cursor-pointer"
-              onClick={() => setSelectedFile(null)}
-              tabIndex={0}
-              aria-description="Delete file"
-            />
-          </div>
-        ) : (
-          <div
-            {...getRootProps({
-              className:
-                "border-dashed border-2 rounded-xl cursor-pointer bg-transparent py-8 flex justify-center items-center flex-col hover:bg-card/50 hover:border-primary transition-all duration-200",
-            })}
-          >
-            <input {...getInputProps()} />
-            <InboxIcon className="w-10 h-10 text-primary" />
-            <p className="mt-2 text-sm text-foreground/80 font-light">
-              <span className="font-medium">Faca upload</span> ou arraste uma
+    <form
+      method="POST"
+      className="flex w-full flex-col"
+      onSubmit={(e) => handleSubmit(e)}
+    >
+      {fileBase64 ? (
+        <div className="relative">
+          <Trash2Icon
+            className="absolute top-2 right-2 rounded-lg bg-background w-8 h-8 p-1 text-foreground hover:text-primary transition-all duration-100 ml-auto cursor-pointer"
+            onClick={() => {
+              setSelectedFile(null);
+              setFileBase64("");
+            }}
+            tabIndex={0}
+            aria-description="Delete file"
+          />
+          <Image
+            src={fileBase64}
+            alt="Imagem do Usuario"
+            width={350}
+            height={50}
+            className="rounded-md h-[200px] md:h-[250px]"
+            style={{ objectFit: "cover", width: "100%" }}
+            priority
+          />
+        </div>
+      ) : (
+        <div
+          {...getRootProps({
+            className:
+              "gap-4  bg-background border-dashed border-2 rounded-xl min-h-[200px] md:min-h-[250px] cursor-pointer py-4 sm:py-6 md:py-8 flex justify-center items-center flex-col hover:bg-card/50 hover:border-primary transition-all duration-200",
+          })}
+        >
+          <input {...getInputProps()} />
+          <InboxIcon className="w-10 h-14 sm:w-14 sm:h-14 text-primary" />
+          <div>
+            <p className="mt-2 text-sm sm:text-base text-foreground/80 font-light">
+              <span className="font-medium">Faça upload</span> ou arraste uma
               imagem
             </p>
-            <p className="text-xs font-light text-foreground/60">
-              Supported formats: .png, .jpeg, .jpg{" "}
+            <p className="text-xs sm:text-sm font-light text-foreground/60 text-center">
+              Formatos permitidos: .png, .jpeg, .jpg{" "}
             </p>
           </div>
-        )}
-        <button
-          type="submit"
-          className="mt-5 rounded bg-blue-500 px-6 py-4 text-lg text-white hover:bg-blue-700"
-        >
-          Melhorar imagem
-        </button>
-      </form>
-    </main>
+        </div>
+      )}
+      <Button type="submit" className="mt-5 px-6 py-4 text-lg">
+        Melhorar imagem
+      </Button>
+    </form>
   );
 }

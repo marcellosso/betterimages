@@ -12,6 +12,7 @@ export type AuthSession = {
       id: string;
       name?: string;
       email?: string;
+      imageUrl?: string;
     };
   } | null;
 };
@@ -26,6 +27,7 @@ export const getUserAuth = async () => {
           id: userId,
           name: `${sessionClaims?.firstName} ${sessionClaims?.lastName}`,
           email: sessionClaims?.email,
+          imageUrl: sessionClaims?.imageUrl,
         },
       },
     } as AuthSession;

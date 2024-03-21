@@ -5,6 +5,10 @@ import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/sonner";
 import { ClerkProvider } from "@clerk/nextjs";
 import { TriggerProvider } from "@trigger.dev/react";
+import Navbar from "@/components/navbar";
+import Link from "next/link";
+import { ThemeProvider } from "@/components/theme-provider";
+import Footer from "@/components/footer";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -29,12 +33,21 @@ export default function RootLayout({
         >
           <body
             className={cn(
-              "min-h-screen bg-background font-sans antialiased",
+              "min-h-screen bg-background font-sans antialiased relative",
               fontSans.variable
             )}
           >
-            {children}
-            <Toaster />
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              disableTransitionOnChange
+            >
+              <div className="bg-grid"></div>
+              <Navbar />
+              {children}
+              <Footer />
+              <Toaster />
+            </ThemeProvider>
           </body>
         </TriggerProvider>
       </ClerkProvider>
