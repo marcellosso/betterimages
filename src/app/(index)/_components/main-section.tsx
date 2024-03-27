@@ -7,7 +7,7 @@ import {
 
 export default function MainSection() {
   return (
-    <section className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
+    <section className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-8 pt-4 pb-8">
       <div className="flex flex-col items-center md:items-start justify-center w-full">
         <header className="mb-8 gap-4 flex w-full flex-col items-start justify-center md:justify-start">
           <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold text-start">
@@ -32,7 +32,7 @@ export default function MainSection() {
           </div>
         </div>
       </div>
-      <section className="grid grid-cols-2 gap-4 col-span-2">
+      <div className="grid grid-cols-2 gap-4 col-span-2 max-md:mt-8">
         <ReactCompareSlider
           itemOne={
             <ReactCompareSliderImage
@@ -63,7 +63,7 @@ export default function MainSection() {
           }
           className="rounded-3xl"
         />
-      </section>
+      </div>
     </section>
   );
 }

@@ -73,7 +73,7 @@
 .bg-grid {
   background-image: url(/grid.svg);
   z-index: -1;
-  opacity: 0.5;
+  opacity: 0.8;
   background-repeat: repeat;
   position: absolute;
   content: "";

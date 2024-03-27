@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { useEventRunStatuses } from "@trigger.dev/react";
 import {
   ArrowUpIcon,
@@ -87,6 +88,19 @@ export default function UploadPage({
       >
         Melhore outra
       </Link>
+      {/* <Button
+                  onClick={() => {
+                    downloadPhoto(
+                      generatedImages[selectedRoomImageIndex],
+                      `novo-${toSnakeCase(room)}-${toSnakeCase(
+                        roomStyle[selectedRoomImageIndex]
+                      )}`
+                    );
+                  }}
+                  className="bg-transparent border border-primary rounded-lg text-text shadow-sm font-medium p-2 px-3 mt-12 hover:shadow-lg hover:opacity-75 transition-all duration-300"
+                >
+                  Baixe a Imagem
+                </Button> */}
     </div>
   );
 }

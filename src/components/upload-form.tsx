@@ -3,12 +3,14 @@ import { toast } from "sonner";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDropzone } from "react-dropzone";
-import { FileCheck2Icon, InboxIcon, Trash2Icon } from "lucide-react";
+import { InboxIcon, Trash2Icon } from "lucide-react";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import { getBase64 } from "@/lib/file";
 
-export function UploadForm() {
+import { cn } from "@/lib/utils";
+
+export function UploadForm({ bigInput = false }) {
   const [selectedFile, setSelectedFile] = useState<File | null>();
   const [fileBase64, setFileBase64] = useState("");
   const router = useRouter();
@@ -116,7 +118,9 @@ export function UploadForm() {
             alt="Imagem do Usuario"
             width={350}
             height={50}
-            className="rounded-md h-[200px] md:h-[250px]"
+            className={cn("rounded-md h-[200px] md:h-[250px]", {
+              "min-h-[530px] md:min-h-[580px]": bigInput,
+            })}
             style={{ objectFit: "cover", width: "100%" }}
             priority
           />
@@ -124,8 +128,13 @@ export function UploadForm() {
       ) : (
         <div
           {...getRootProps({
-            className:
-              "gap-4  bg-background border-dashed border-2 rounded-xl min-h-[200px] md:min-h-[250px] cursor-pointer py-4 sm:py-6 md:py-8 flex justify-center items-center flex-col hover:bg-card/50 hover:border-primary transition-all duration-200",
+            className: cn(
+              "gap-4  bg-background border-dashed border-2 rounded-xl  cursor-pointer py-4 sm:py-6 md:py-8 flex justify-center items-center flex-col hover:bg-card/50 hover:border-primary transition-all duration-200",
+              {
+                "min-h-[200px] md:min-h-[250px]": !bigInput,
+                "min-h-[530px] md:min-h-[580px]": bigInput,
+              }
+            ),
           })}
         >
           <input {...getInputProps()} />

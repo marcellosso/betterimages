@@ -12,10 +12,14 @@ export default async function PricingPage() {
   const creditsPlan = await getUserCredits(session?.user?.id ?? "");
 
   return (
-    <main className="flex min-h-screen w-full flex-col items-center bg-secondary justify-center px-4 md:p-8">
+    <main className="flex container min-h-screen w-full flex-col items-center justify-center">
       <header className="mb-8 flex w-full flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold">Get Full Resolution Images</h1>
-        <p className="opacity-60">1 IMAGE = 1 CREDIT</p>
+        <h1 className="text-2xl sm:Text-4xl md:text-6xl font-bold text-center">
+          Deixe suas imagens com uma qualidade perfeita
+        </h1>
+        <p className="text-muted-foreground font-medium mt-4 text-lg sm:text-xl md:text-2xl">
+          1 IMAGEM = 1 CRÉDITO
+        </p>
       </header>
 
       <section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
