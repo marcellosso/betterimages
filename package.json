@@ -14,7 +14,8 @@
     "db:studio": "drizzle-kit studio",
     "db:check": "drizzle-kit check:pg",
     "db:push": " drizzle-kit push:pg",
-    "stripe:listen": "stripe listen --forward-to localhost:3000/api/webhooks/stripe"
+    "stripe:listen": "stripe listen --forward-to localhost:3000/api/webhooks/stripe",
+    "email:dev": "email dev"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.536.0",
@@ -30,10 +31,12 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-tabs": "^1.0.4",
+    "@react-email/components": "0.0.16",
     "@stripe/stripe-js": "^3.0.10",
     "@trigger.dev/nextjs": "^2.3.18",
     "@trigger.dev/react": "^2.3.18",
     "@trigger.dev/replicate": "^2.3.18",
+    "@trigger.dev/resend": "^2.3.18",
     "@trigger.dev/sdk": "^2.3.18",
     "@vercel/kv": "^1.0.1",
     "class-variance-authority": "^0.7.0",
@@ -50,6 +53,7 @@
     "react-compare-slider": "^3.0.1",
     "react-dom": "^18",
     "react-dropzone": "^14.2.3",
+    "react-email": "2.1.1",
     "sonner": "^1.4.3",
     "stripe": "^14.21.0",
     "tailwind-merge": "^2.2.2",

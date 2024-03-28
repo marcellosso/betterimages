@@ -5,7 +5,7 @@ import { client } from "@/trigger";
 import { Replicate } from "@trigger.dev/replicate";
 import { eventTrigger } from "@trigger.dev/sdk";
 import { kv } from "@vercel/kv";
-import { eq, sql } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { z } from "zod";
 
 const replicate = new Replicate({
@@ -65,13 +65,6 @@ client.defineJob({
       },
     });
 
-    // const imageGenerated = {
-    //   output: [
-    //     "https://replicate.delivery/pbxt/iEz6MpzsI3qSGluBtSdJZL3AtfJ9aM5TR9raP8V8gsWMG1QJA/1337-13b0879a-e594-11ee-b1e6-1a0c5e62747e.png",
-    //   ],
-    //   error: null,
-    // };
-
     if (imageGenerated.output === undefined || imageGenerated.error !== null) {
       await generatingImageStatus.update("upscaling-image-error", {
         label: "Image upscaling failed",
@@ -111,6 +104,14 @@ client.defineJob({
         })
         .where(eq(userCredits.userId, userId));
     }
+
+    await client.sendEvent({
+      name: "send.image.email",
+      payload: {
+        to: "marcel.losso@gmail.com",
+        subject: "Imagem melhorada",
+      },
+    });
 
     return {
       image: imageGenerated.output,
