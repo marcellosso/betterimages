@@ -15,43 +15,59 @@ type Props = {
 export default async function PlanSettings({ session }: Props) {
   const subscriptionPlan = await getUserSubscriptionPlan();
 
+  const isMonthlyPlan =
+    subscriptionPlan.monthlyStripePriceId == subscriptionPlan.stripePriceId;
+
   return (
     <AccountCard
       params={{
-        header: "Your Plan",
+        header: "Seu Plano",
         description: subscriptionPlan.isSubscribed
-          ? `You are currently on the ${subscriptionPlan.name} plan.`
-          : `You are not subscribed to any plan.`.concat(
-              !session?.user?.email || session?.user?.email.length < 5
-                ? " Please add your email to upgrade your account."
-                : ""
-            ),
+          ? `Atualmente, você está no Plano de ${subscriptionPlan.name} mensais.`
+          : `Você não está inscrito em nenhum plano.`,
       }}
     >
       <AccountCardBody>
         {subscriptionPlan.isSubscribed && (
           <h3 className="font-semibold text-lg">
-            ${subscriptionPlan.price ? subscriptionPlan.price / 100 : 0} / month
+            R${" "}
+            {subscriptionPlan?.[
+              isMonthlyPlan ? "monthly_price" : "yearly_price"
+            ]
+              ? subscriptionPlan[
+                  isMonthlyPlan ? "monthly_price" : "yearly_price"
+                ]! / 100
+              : 0}{" "}
+            / {isMonthlyPlan ? "mês" : "ano"}
           </h3>
         )}
         {subscriptionPlan.stripeCurrentPeriodEnd && (
           <p className="text-sm mb-4 text-muted-foreground ">
-            Your plan will{" "}
+            Seu plano irá{" "}
             {!subscriptionPlan.isSubscribed
               ? null
               : subscriptionPlan.isCanceled
-              ? "cancel"
-              : "renew"}
-            {" on "}
+              ? "expirar"
+              : "renovar"}
+            {" em "}
             <span className="font-semibold">
               {subscriptionPlan.stripeCurrentPeriodEnd.toLocaleDateString()}
             </span>
           </p>
         )}
+        {subscriptionPlan.creditsAmount && (
+          <p className="text-sm mb-4 text-muted-foreground ">
+            Com seu plano, você receberá{" "}
+            <span className="font-semibold">
+              {subscriptionPlan.creditsAmount} Créditos
+            </span>{" "}
+            por mês.
+          </p>
+        )}
       </AccountCardBody>
-      <AccountCardFooter description="Manage your subscription on Stripe.">
-        <Link href="/account/billing">
-          <Button variant="outline">Go to billing</Button>
+      <AccountCardFooter description="Você pode alterar ou cancelar seu plano a qualquer momento.">
+        <Link href="/precos">
+          <Button variant="outline">Planos</Button>
         </Link>
       </AccountCardFooter>
     </AccountCard>

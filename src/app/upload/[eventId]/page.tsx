@@ -1,18 +1,35 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import downloadPhoto from "@/lib/file";
 import { useEventRunStatuses } from "@trigger.dev/react";
-import {
-  ArrowUpIcon,
-  CheckCircleIcon,
-  ClockIcon,
-  ExternalLinkIcon,
-} from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import {
   ReactCompareSlider,
   ReactCompareSliderImage,
 } from "react-compare-slider";
+
+function LoadingState() {
+  return (
+    <div className="w-full flex flex-col items-center justify-center gap-2 rounded-md min-h-[400px] md:min-h-[500px] bg-secondary border border-primary border-dashed">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="animate-spin stroke-primary w-16 h-16"
+      >
+        <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+      </svg>
+      {/* <p className="mb-4 text-center">
+                Voce também receberá sua imagem no seu email assim que ela estiver
+                pronta! 💫
+              </p> */}
+    </div>
+  );
+}
 
 export default function UploadPage({
   params,
@@ -25,70 +42,67 @@ export default function UploadPage({
 
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-center">
-      <h2 className="mb-2 text-3xl font-bold">Muito Obrigado! 🌟</h2>
-      <div className="flex flex-col gap-1">
-        {fetchStatus === "loading" ? (
-          <p>Loading...</p>
-        ) : fetchStatus === "error" ? (
-          <p>{error.message}</p>
-        ) : (
-          statuses.map((status) => (
-            <div key={status.key} className="flex flex-col gap-1">
-              <div className="flex gap-2 items-center">
-                {status.state === "failure" ? (
-                  <ExternalLinkIcon className="text-red-500 h-4 w-4" />
-                ) : status.state === "success" ? (
-                  <CheckCircleIcon className="text-green-500 h-4 w-4" />
-                ) : status.state === "loading" ? (
-                  <ArrowUpIcon className="text-blue-500 h-4 w-4" />
-                ) : (
-                  <ClockIcon className="text-slate-500 h-4 w-4" />
-                )}
-                <div className="flex gap-1.5 items-center">
-                  <h4 className="text-base">{status.label}</h4>
+      <div className="max-w-3xl w-full flex flex-col items-center justify-center px-4">
+        <div className="flex flex-col gap-1 w-full">
+          {fetchStatus === "loading" ? (
+            <LoadingState />
+          ) : fetchStatus === "error" ? (
+            <p>{error.message}</p>
+          ) : (
+            statuses.map((status) => (
+              <>
+                <div key={status.key} className="flex flex-col gap-1 w-full">
+                  {status.state === "loading" && <LoadingState />}
+                  {status.data && typeof status.data.url === "string" && (
+                    <>
+                      <ReactCompareSlider
+                        itemOne={
+                          <ReactCompareSliderImage
+                            src={status.data.originalUrl as string}
+                            alt="Image one"
+                          />
+                        }
+                        itemTwo={
+                          <ReactCompareSliderImage
+                            src={status.data.url}
+                            alt="Image two"
+                          />
+                        }
+                        className="rounded-md h-[400px] md:h-[500px]"
+                      />
+                      <div className="mt-5 flex w-full justify-center gap-4 items-center">
+                        <Button className="px-6 py-4 text-lg">
+                          <Link href="/upload">Melhorar outra</Link>
+                        </Button>
+                        <Button
+                          className="px-6 py-4 text-lg"
+                          variant="secondary"
+                          onClick={() => {
+                            downloadPhoto(
+                              (status.data?.url as string) || "",
+                              `photohd-${params.eventId}`
+                            );
+                          }}
+                        >
+                          Baixar Imagem
+                        </Button>
+                      </div>
+                    </>
+                  )}
                 </div>
-              </div>
-              {status.data && typeof status.data.url === "string" && (
-                <>
-                  <ReactCompareSlider
-                    itemOne={
-                      <ReactCompareSliderImage
-                        src={status.data.originalUrl as string}
-                        alt="Image one"
-                      />
-                    }
-                    itemTwo={
-                      <ReactCompareSliderImage
-                        src={status.data.url}
-                        alt="Image two"
-                      />
-                    }
-                    style={{ width: 550, height: 550 }}
-                    className="rounded-md"
-                  />
-                </>
-              )}
-            </div>
-          ))
-        )}
-        {run?.status === "FAILURE" &&
-          run.output &&
-          typeof run.output.message === "string" && (
-            <p className="bg-red-200 text-red-600 border-red-300 border my-4 rounded p-2">
-              Upscaling falhou: {run.output.message}
-            </p>
+              </>
+            ))
           )}
-      </div>
-      <p className="mb-4 text-center">
-        Voce recebera sua imagem no seu email assim que ela estiver pronta! 💫
-      </p>
-      <Link
-        href="/"
-        className="rounded bg-blue-500 px-4 py-3 text-white hover:bg-blue-600"
-      >
-        Melhore outra
-      </Link>
-      {/* <Button
+          {run?.status === "FAILURE" &&
+            run.output &&
+            typeof run.output.message === "string" && (
+              <p className="bg-red-200 text-red-600 border-red-300 border my-4 rounded p-2">
+                Upscaling falhou: {run.output.message}
+              </p>
+            )}
+        </div>
+
+        {/* <Button
                   onClick={() => {
                     downloadPhoto(
                       generatedImages[selectedRoomImageIndex],
@@ -101,6 +115,7 @@ export default function UploadPage({
                 >
                   Baixe a Imagem
                 </Button> */}
+      </div>
     </div>
   );
 }

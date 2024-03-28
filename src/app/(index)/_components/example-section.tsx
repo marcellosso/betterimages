@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 import {
   ReactCompareSlider,
@@ -29,27 +30,34 @@ const CATEGORIES = [
   },
 ];
 
-export default function ExampleSection() {
+export default function ExampleSection({ hideText = false }) {
   return (
-    <section className="py-16 md:py-28 w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-      <div className="mb-8 gap-4 flex flex-col items-center md:items-start justify-center md:justify-start text-center md:text-start order-1 md:order-2">
-        <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold ">
-          Deixe sua imagem com uma qualidade impecável
-        </h2>
+    <section
+      className={cn(
+        "py-16 md:py-28 w-full  gap-8 items-center",
+        !hideText && "grid grid-cols-1 md:grid-cols-2"
+      )}
+    >
+      {!hideText && (
+        <div className="mb-8 gap-4 flex flex-col items-center md:items-start justify-center md:justify-start text-center md:text-start order-1 md:order-2">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold ">
+            Deixe sua imagem com uma qualidade impecável
+          </h2>
 
-        <p className="text-sm md:text-base">
-          Existem umas 20 milhões de atividades mais interessantes do que
-          remover fundos de imagens à mão.
-        </p>
-        <p className="text-sm md:text-base">
-          Graças à inteligência artificial do remove.bg, você pode reduzir o seu
-          tempo de edição - e divertir-se mais!
-        </p>
+          <p className="text-sm md:text-base">
+            Existem umas 20 milhões de atividades mais interessantes do que
+            remover fundos de imagens à mão.
+          </p>
+          <p className="text-sm md:text-base">
+            Graças à inteligência artificial do remove.bg, você pode reduzir o
+            seu tempo de edição - e divertir-se mais!
+          </p>
 
-        <Button className="mt-5 px-6 py-4 text-lg">
-          <Link href="/upload">Testar Agora</Link>
-        </Button>
-      </div>
+          <Button className="mt-5 px-6 py-4 text-lg">
+            <Link href="/upload">Testar Agora</Link>
+          </Button>
+        </div>
+      )}
       <div className="flex flex-col items-center order-2 md:order-1">
         <Tabs defaultValue={CATEGORIES[0].name}>
           <TabsList className="flex py-2 space-x-3 bg-transparent justify-center overflow-x-scroll md:overflow-hidden sm:px-8 no-scrollbar">

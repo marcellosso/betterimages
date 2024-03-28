@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 export function UploadForm({ bigInput = false }) {
   const [selectedFile, setSelectedFile] = useState<File | null>();
   const [fileBase64, setFileBase64] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -41,6 +42,7 @@ export function UploadForm({ bigInput = false }) {
         toast.error("Por favor selecione uma imagem");
         return;
       }
+      setLoading(true);
 
       const presignResponse = await fetch("/api/upload", {
         method: "POST",
@@ -93,6 +95,8 @@ export function UploadForm({ bigInput = false }) {
       }
     } catch (err) {
       toast.error(err as string);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -119,7 +123,7 @@ export function UploadForm({ bigInput = false }) {
             width={350}
             height={50}
             className={cn("rounded-md h-[200px] md:h-[250px]", {
-              "min-h-[530px] md:min-h-[580px]": bigInput,
+              "min-h-[400px] md:min-h-[500px]": bigInput,
             })}
             style={{ objectFit: "cover", width: "100%" }}
             priority
@@ -132,7 +136,7 @@ export function UploadForm({ bigInput = false }) {
               "gap-4  bg-background border-dashed border-2 rounded-xl  cursor-pointer py-4 sm:py-6 md:py-8 flex justify-center items-center flex-col hover:bg-card/50 hover:border-primary transition-all duration-200",
               {
                 "min-h-[200px] md:min-h-[250px]": !bigInput,
-                "min-h-[530px] md:min-h-[580px]": bigInput,
+                "min-h-[400px] md:min-h-[500px]": bigInput,
               }
             ),
           })}
@@ -150,7 +154,25 @@ export function UploadForm({ bigInput = false }) {
           </div>
         </div>
       )}
-      <Button type="submit" className="mt-5 px-6 py-4 text-lg">
+      <Button
+        type="submit"
+        className="mt-5 px-6 py-4 text-lg"
+        disabled={loading}
+      >
+        {loading && (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="animate-spin stroke-primary-foreground w-5 h-5 mr-2"
+          >
+            <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+          </svg>
+        )}
         Melhorar imagem
       </Button>
     </form>

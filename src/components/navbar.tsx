@@ -131,7 +131,7 @@ export default async function Navbar() {
                   Preços
                 </Link>
                 <Separator />
-                <Link href="/precos" className="py-4 text-lg">
+                <Link href="/conta" className="py-4 text-lg">
                   Minha Conta
                 </Link>
                 <Separator />

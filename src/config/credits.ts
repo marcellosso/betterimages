@@ -32,4 +32,12 @@ export const storeCreditsPlans: CreditPlan[] = [
     stripePriceId: process.env.NEXT_PUBLIC_STRIPE_10_CREDIT_PRICE_ID ?? "",
     creditsAmount: 10,
   },
+  {
+    id: "50_credit",
+    name: "50 créditos",
+    price: 14490,
+    price_per_image: 2.89,
+    stripePriceId: process.env.NEXT_PUBLIC_STRIPE_50_CREDIT_PRICE_ID ?? "",
+    creditsAmount: 50,
+  },
 ];

@@ -3,6 +3,7 @@ export interface SubscriptionPlan {
   name: string;
   monthly_price: number;
   monthly_price_per_image: number;
+  yearly_price: number;
   yearly_monthly_price: number;
   yearly_monthly_price_per_image: number;
   monthlyStripePriceId: string;
@@ -16,6 +17,7 @@ export const storeSubscriptionPlans: SubscriptionPlan[] = [
     name: "40 créditos",
     monthly_price: 3400,
     monthly_price_per_image: 0.85,
+    yearly_price: 36700,
     yearly_monthly_price: 3100,
     yearly_monthly_price_per_image: 0.76,
     monthlyStripePriceId:
@@ -29,6 +31,7 @@ export const storeSubscriptionPlans: SubscriptionPlan[] = [
     name: "200 créditos",
     monthly_price: 14900,
     monthly_price_per_image: 0.74,
+    yearly_price: 160900,
     yearly_monthly_price: 13400,
     yearly_monthly_price_per_image: 0.67,
     monthlyStripePriceId:
@@ -42,6 +45,7 @@ export const storeSubscriptionPlans: SubscriptionPlan[] = [
     name: "500 créditos",
     monthly_price: 34900,
     monthly_price_per_image: 0.71,
+    yearly_price: 376900,
     yearly_monthly_price: 31400,
     yearly_monthly_price_per_image: 0.62,
     monthlyStripePriceId:

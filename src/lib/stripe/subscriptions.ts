@@ -1,7 +1,10 @@
 import { db } from "../db";
 import { userCredits, userSubscriptions } from "../db/schema/subscriptions";
 import { eq } from "drizzle-orm";
-import { storeSubscriptionPlans } from "@/config/subscriptions";
+import {
+  SubscriptionPlan,
+  storeSubscriptionPlans,
+} from "@/config/subscriptions";
 import { stripe } from ".";
 import { getUserAuth } from "../auth/utils";
 
@@ -21,7 +24,9 @@ export async function getUserCredits(userId: string | null) {
   return credits;
 }
 
-export async function getUserSubscriptionPlan() {
+export async function getUserSubscriptionPlan(): Promise<
+  Partial<SubscriptionPlan> & { [key: string]: any }
+> {
   const { session } = await getUserAuth();
 
   const [subscription] = await db
@@ -71,6 +76,7 @@ export async function getUserSubscriptionPlan() {
     stripeSubscriptionid: subscription.stripeSubscriptionId,
     stripeCurrentPeriodEnd: subscription.stripeCurrentPeriodEnd,
     stripeCustomerId: subscription.stripeCustomerId,
+    stripePriceId: subscription.stripePriceId,
     isSubscribed,
     isCanceled,
   };

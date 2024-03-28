@@ -82,10 +82,10 @@ const UserAvatar: FC<IUserAvatar> = ({ userName, userEmail, userPhoto }) => {
             <ul className="text-sm text-letter" aria-labelledby="userAvatar">
               <li className="relative">
                 <Link
-                  href="/perfil"
+                  href="/conta"
                   onClick={() => setIsUserDropdownOpen(false)}
                   className={cn(
-                    "px-2 py-1.5 text-letter hover:bg-gray-100  flex items-center",
+                    "px-2 py-1.5 text-letter hover:opacity-50 flex items-center",
                     LINK_BEFORE_CSS
                   )}
                 >
@@ -113,7 +113,7 @@ const UserAvatar: FC<IUserAvatar> = ({ userName, userEmail, userPhoto }) => {
                   href="/precos"
                   onClick={() => setIsUserDropdownOpen(false)}
                   className={cn(
-                    "px-2 py-1.5 text-letter hover:bg-gray-100  flex items-center",
+                    "px-2 py-1.5 text-letter hover:opacity-50  flex items-center",
                     LINK_BEFORE_CSS
                   )}
                 >
@@ -146,7 +146,7 @@ const UserAvatar: FC<IUserAvatar> = ({ userName, userEmail, userPhoto }) => {
                     signOut();
                   }}
                   className={cn(
-                    "px-2 py-1.5  w-full text-letter hover:bg-gray-100 flex items-center",
+                    "px-2 py-1.5  w-full text-letter hover:opacity-50 flex items-center",
                     LINK_BEFORE_CSS
                   )}
                 >

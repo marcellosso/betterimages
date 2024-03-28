@@ -24,7 +24,7 @@ export async function POST(req: Request) {
     creditsAmount,
   } = body;
 
-  const billingUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/account`;
+  const billingUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/conta`;
 
   const { userId } = auth();
 
