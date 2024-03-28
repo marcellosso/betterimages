@@ -23,10 +23,10 @@ function LoadingState() {
       >
         <path d="M21 12a9 9 0 1 1-6.219-8.56" />
       </svg>
-      {/* <p className="mb-4 text-center">
-                Voce também receberá sua imagem no seu email assim que ela estiver
-                pronta! 💫
-              </p> */}
+      <p className="mb-4 text-center">
+        Voce também receberá sua imagem no seu email assim que ela estiver
+        pronta! 💫
+      </p>
     </div>
   );
 }

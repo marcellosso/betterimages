@@ -1,13 +1,16 @@
 import { client } from "@/trigger";
 import { auth } from "@clerk/nextjs";
 import { NextRequest } from "next/server";
-import { validateUser } from "@/lib/auth/utils";
+import { getUserAuth, validateUser } from "@/lib/auth/utils";
 
 export async function POST(request: NextRequest) {
-  const { userId } = auth();
+  const { session } = await getUserAuth();
   const userIp = request.ip || "127.0.0.1";
 
-  const { error, message } = await validateUser(userId, userIp);
+  const { error, message } = await validateUser(
+    session?.user.id as string,
+    userIp
+  );
   if (error) {
     return Response.json({ error: message }, { status: 403 });
   }
@@ -19,7 +22,8 @@ export async function POST(request: NextRequest) {
       payload: {
         imageUrl,
         userIp: userIp,
-        userId,
+        userId: session?.user.id,
+        userEmail: session?.user.email,
       },
     });
 

@@ -24,10 +24,11 @@ client.defineJob({
       imageUrl: z.string(),
       userIp: z.string(),
       userId: z.string() || z.null(),
+      userEmail: z.string() || z.null(),
     }),
   }),
   run: async (payload, io, ctx) => {
-    const { imageUrl, userIp, userId } = payload;
+    const { imageUrl, userIp, userId, userEmail } = payload;
 
     await io.logger.info("Image upscaling started!");
 
@@ -108,8 +109,8 @@ client.defineJob({
     await client.sendEvent({
       name: "send.image.email",
       payload: {
-        to: "marcel.losso@gmail.com",
-        subject: "Imagem melhorada",
+        to: userEmail,
+        subject: "PhotosHD - Sua imagem está pronta!",
       },
     });
 
