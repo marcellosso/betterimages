@@ -23,20 +23,20 @@ export default function CTASection() {
           tempo de edição - e divertir-se mais!
         </p>
         <Button className="mt-5 sm:px-8 sm:py-6 px-6 py-4 text-lg max-sm:self-center w-fit">
-          <Link href="/upload">Testar Agora</Link>
+          <Link href="/upload">Melhore sua foto</Link>
         </Button>
       </div>
       <ReactCompareSlider
         itemOne={
           <ReactCompareSliderImage
             src={`./examples/frog-before.png`}
-            alt="Imagem Antes de ser melhorada."
+            alt="Imagem de um sapo colorido granulada antes de ser melhorada."
           />
         }
         itemTwo={
           <ReactCompareSliderImage
             src={`./examples/frog-after.png`}
-            alt="Imagem Apos ser melhorada."
+            alt="Imagem de um sapo colorido em HD apos ser melhorada."
           />
         }
         className="rounded-3xl "

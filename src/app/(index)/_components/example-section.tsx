@@ -45,12 +45,14 @@ export default function ExampleSection({ hideText = false }) {
           </h2>
 
           <p className="text-sm md:text-base">
-            Existem umas 20 milhões de atividades mais interessantes do que
-            remover fundos de imagens à mão.
+            Muitas vezes tiramos uma foto e ela não fica com boa qualidade como
+            queremos - Ou, temos uma imagem antiga de nossa família e queremos
+            ver como ela ficaria em HD.
           </p>
           <p className="text-sm md:text-base">
-            Graças à inteligência artificial do remove.bg, você pode reduzir o
-            seu tempo de edição - e divertir-se mais!
+            Graças à inteligência artificial da PhotosHD, você consegue melhorar
+            sua imagem ou foto com apenas um clique, sem precisar de dores de
+            cabeça.
           </p>
 
           <Button className="mt-5 px-6 py-4 text-lg">
