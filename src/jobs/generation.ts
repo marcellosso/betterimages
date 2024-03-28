@@ -111,6 +111,7 @@ client.defineJob({
       payload: {
         to: userEmail,
         subject: "PhotosHD - Sua imagem está pronta!",
+        imageUrl: imageGenerated.output[0] as string,
       },
     });
 

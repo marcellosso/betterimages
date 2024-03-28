@@ -14,13 +14,15 @@ export default function CTASection() {
           Melhore suas imagens com nossa IA
         </h5>
         <p className="text-xs md:text-sm">
-          Existem umas 20 milhões de atividades mais interessantes do que
-          remover fundos de imagens à mão.
+          Possuí uma imagem antiga de família que queria recuperar? Gostaria de
+          postar uma foto em suas redes sociais porém ela ficou com baixa
+          qualidade?
         </p>
         <Separator className="bg-primary" />
         <p className="text-xs md:text-sm">
-          Graças à inteligência artificial do remove.bg, você pode reduzir o seu
-          tempo de edição - e divertir-se mais!
+          Deixe nossa tecnologia de Inteligência Artificial resolver seus
+          problemas. Com apenas um clique você consegue melhorar suas fotos e
+          deixá-las em HD - Teste agora gratuítamente
         </p>
         <Button className="mt-5 sm:px-8 sm:py-6 px-6 py-4 text-lg max-sm:self-center w-fit">
           <Link href="/upload">Melhore sua foto</Link>

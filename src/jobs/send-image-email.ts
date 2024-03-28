@@ -3,7 +3,7 @@ import { client } from "@/trigger";
 import { Resend } from "@trigger.dev/resend";
 import { z } from "zod";
 
-import SampleEmail from "../../emails/sample-email";
+import { ImageUpscaleEmail } from "../../emails/image-email";
 
 const resend = new Resend({
   id: "resend",
@@ -19,6 +19,7 @@ client.defineJob({
     schema: z.object({
       to: z.string(),
       subject: z.string(),
+      imageUrl: z.string(),
     }),
   }),
   integrations: {
@@ -29,9 +30,9 @@ client.defineJob({
       to: payload.to,
       subject: payload.subject,
       from: "PhotosHD <contato@photoshd.com.br>",
-      html: "<h1>Thanks for the payment</h1>",
-      text: "Thanks for the payment",
+      // text: "Sua imagem está pronta!",
       // react: <SampleEmail />,;
+      react: ImageUpscaleEmail({ imageUrl: payload.imageUrl }),
     });
   },
 });

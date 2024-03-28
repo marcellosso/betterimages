@@ -16,10 +16,6 @@ export default async function InstagramPost() {
         <div className="flex items-center justify-between px-4 py-2">
           <div className="flex items-center space-x-3">
             <Avatar>
-              <AvatarImage
-                alt="Profile picture"
-                src="/placeholder.svg?height=32&width=32"
-              />
               <AvatarFallback>U</AvatarFallback>
             </Avatar>
             <span className="font-semibold text-sm">
@@ -57,7 +53,7 @@ export default async function InstagramPost() {
             <span className="font-semibold">
               {session?.user?.name || "usuario_desconhecido"}
             </span>{" "}
-            Foto melhorada por photoshd
+            Uma foto perfeita para suas redes, melhorada por PhotosHD
           </p>
           <div className="mt-2">
             <Input

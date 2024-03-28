@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /conta/
+
+# Host
+Host: https://photoshd.com.br/
+
+# Sitemaps
+Sitemap: https://photoshd.com.br/sitemap.xml
