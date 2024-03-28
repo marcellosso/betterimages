@@ -8,6 +8,7 @@ import { TriggerProvider } from "@trigger.dev/react";
 import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import Footer from "@/components/footer";
+import { ptBR } from "@clerk/localizations";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -26,7 +27,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <ClerkProvider signInUrl="/sign-in" signUpUrl="/sign-up">
+      <ClerkProvider
+        signInUrl="/sign-in"
+        signUpUrl="/sign-up"
+        localization={ptBR}
+      >
         <TriggerProvider
           publicApiKey={process.env.NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY!}
         >

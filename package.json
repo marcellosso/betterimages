@@ -19,6 +19,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.536.0",
     "@aws-sdk/s3-presigned-post": "^3.536.0",
+    "@clerk/localizations": "^1.26.16",
     "@clerk/nextjs": "^4.29.9",
     "@neondatabase/serverless": "^0.9.0",
     "@radix-ui/react-avatar": "^1.0.4",
