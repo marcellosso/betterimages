@@ -2,7 +2,7 @@ import { SignUp } from "@clerk/nextjs";
 
 export default function Page() {
   return (
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+    <div className="flex flex-1 flex-col gap-4 p-8 min-h-screen items-center">
       <SignUp
         signInUrl="/sign-in"
         redirectUrl={"/upload"}
