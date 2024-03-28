@@ -17,6 +17,10 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://photoshd.com.br"),
+  alternates: {
+    canonical: "/",
+  },
   title: "PhotosHD - Deixe sua imagem em HD",
   description:
     "Deixe sua imagem com alta qualidade. Cansado de imagens borradas, antigas e com baixa qualidade? Utilize nossa tecnologia de Inteligência Artificial (IA) para melhorar sua imagem. Nunca mais faça um post em suas redes sociais fotos com qualidade ruin, deixa elas em HD com apenas um clique. Possuí aquela imagem antiga de família que gostaria de recuperar? PhotosHD resolve o problema para você.",
