@@ -60,14 +60,14 @@ export default function ExampleSection({ hideText = false }) {
           </Button>
         </div>
       )}
-      <div className="flex flex-col items-center order-2 md:order-1">
+      <div className="flex flex-col items-center order-2 md:order-1 px-4">
         <Tabs defaultValue={CATEGORIES[0].name}>
-          <TabsList className="flex py-2 space-x-3 bg-transparent justify-center overflow-x-scroll md:overflow-hidden sm:px-8 no-scrollbar">
+          <TabsList className="flex py-2 space-x-1 sm:space-x-3 bg-transparent justify-center overflow-x-scroll md:overflow-hidden sm:px-8 no-scrollbar">
             {CATEGORIES.map((category) => (
               <TabsTrigger
                 key={category.name}
                 value={category.name}
-                className="bg-secondary font-bold rounded-full h-11 px-4 hover:opacity-70 text-secondary-foreground data-[state=active]:bg-primary/60 data-[state=active]:text-primary-foreground transition-all duration-100"
+                className="bg-secondary font-bold rounded-full h-11 px-3 sm:px-4 hover:opacity-70 text-secondary-foreground data-[state=active]:bg-primary/60 data-[state=active]:text-primary-foreground transition-all duration-100"
               >
                 {category.name}
               </TabsTrigger>
@@ -78,7 +78,7 @@ export default function ExampleSection({ hideText = false }) {
             <TabsContent
               key={category.name}
               value={category.name}
-              className="mx-auto w-full max-w-xl sm:max-w-3xl md:max-w-5xl mt-4"
+              className="mx-auto w-full  max-w-xl sm:max-w-3xl md:max-w-5xl mt-4"
             >
               <ReactCompareSlider
                 itemOne={

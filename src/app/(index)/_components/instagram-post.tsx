@@ -1,4 +1,4 @@
-import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
+import { AvatarFallback, Avatar } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { getUserAuth } from "@/lib/auth/utils";
 import { SVGProps } from "react";
@@ -11,7 +11,7 @@ export default async function InstagramPost() {
   const { session } = await getUserAuth();
 
   return (
-    <div className="max-w-md">
+    <div className="max-w-sm sm:max-w-md shadow-md shadow-primary">
       <div className="bg-card border rounded-lg">
         <div className="flex items-center justify-between px-4 py-2">
           <div className="flex items-center space-x-3">
@@ -38,7 +38,7 @@ export default async function InstagramPost() {
               alt="Imagem Apos ser melhorada."
             />
           }
-          className="w-[380px] h-[380px] aspect-square object-cover"
+          className="w-full h-[300px] sm:h-[380px] aspect-square object-cover"
         />
         <div className="px-4 py-2">
           <div className="flex space-x-4">

@@ -1,8 +1,6 @@
 "use server";
-// import { simplifiedPluralize } from '@/utils/helpers';
 import Link from "next/link";
 import { Suspense } from "react";
-// import Logo from '../Logo';
 import { getUserAuth } from "@/lib/auth/utils";
 import LinkButton from "./link-button";
 import UserAvatar from "./user-avatar";
@@ -11,14 +9,7 @@ import { getUserCredits } from "@/lib/stripe/subscriptions";
 import { simplifiedPluralize } from "@/lib/utils";
 import Logo from "./logo";
 import { ModeToggle } from "./mode-toggle";
-import { MenuIcon } from "lucide-react";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTrigger,
-} from "./ui/drawer";
+import NavbarDrawer from "./navbar-drawer";
 
 const UserInfo = async () => {
   const { session } = await getUserAuth();
@@ -110,46 +101,19 @@ export default async function Navbar() {
 
           <div className="flex items-center gap-2">
             <ModeToggle />
-            <Drawer direction="right">
-              <DrawerTrigger>
-                <MenuIcon />
-              </DrawerTrigger>
-              <DrawerContent className="mt-0 top-0 right-0 w-screen max-w-96 h-full p-6 pt-0">
-                <DrawerHeader className="flex items-center justify-center">
-                  <Logo>
-                    <span className="text-2xl font-semibold">
-                      <span>photos</span>
-                      <span className="font-extrabold text-primary">hd</span>
-                    </span>
-                  </Logo>
-                </DrawerHeader>
-                <Link href="/upload" className="py-4 text-lg">
-                  Melhorar Imagem
-                </Link>
-                <Separator />
-                <Link href="/precos" className="py-4 text-lg">
-                  Preços
-                </Link>
-                <Separator />
-                <Link href="/conta" className="py-4 text-lg">
-                  Minha Conta
-                </Link>
-                <Separator />
-                <DrawerFooter>
-                  <div className="w-full self-center mb-2">
-                    <Suspense
-                      fallback={
-                        <div className="h-full w-full bg-gray-500 animate-pulse rounded-lg" />
-                      }
-                    >
-                      <div className="flex items-center justify-between w-full">
-                        <UserInfo />
-                      </div>
-                    </Suspense>
+            <NavbarDrawer>
+              <div className="w-full self-center mb-2">
+                <Suspense
+                  fallback={
+                    <div className="h-full w-full bg-gray-500 animate-pulse rounded-lg" />
+                  }
+                >
+                  <div className="flex items-center justify-between w-full">
+                    <UserInfo />
                   </div>
-                </DrawerFooter>
-              </DrawerContent>
-            </Drawer>
+                </Suspense>
+              </div>
+            </NavbarDrawer>
           </div>
         </div>
       </header>
