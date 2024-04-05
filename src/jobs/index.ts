@@ -2,3 +2,4 @@
 
 export * from "./generation";
 export * from "./send-image-email";
+export * from "./remove-background";

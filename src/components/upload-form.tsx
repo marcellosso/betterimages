@@ -154,9 +154,10 @@ export function UploadForm({ bigInput = false }) {
           </div>
         </div>
       )}
+
       <Button
         type="submit"
-        className="mt-5 px-6 py-4 text-lg"
+        className="mt-2 px-6 py-4 text-lg"
         disabled={loading}
       >
         {loading && (
